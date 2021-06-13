@@ -48,14 +48,14 @@ class FormPedidoController extends Controller
         $criapedido = Pedido::create([
             'nome' => $req->input('nome'),
             'cep' => $req->input('cep'),
-            'logradouro' => $req->input('logradouro').', '.$req->input('numero'),
+            'logradouro' => $req->input('logradouro') . ', ' . $req->input('numero'),
             'complemento' => $req->input('complemento'),
             'bairro' => $req->input('bairro'),
             'cidade' => $req->input('cidade'),
             'estado' => $req->input('estado'),
         ]);
 
-        if($criapedido){
+        if ($criapedido) {
             return response()->json([
                 'message' => 'Pedido recebido! Obrigado pela confiança, seu brinde chegará em breve :)',
             ]);
