@@ -14,8 +14,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
-    <nav class="navbar navbar-dark bg-dark">
+<body style="color: rgb(42, 99, 255)">
+    <nav class="navbar" style="background-color: rgb(235, 238, 50); ">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Desafio Petiko - Carlos Floresta</span>
         </div>

@@ -57,7 +57,7 @@ class FormPedidoController extends Controller
 
         if ($criapedido) {
             return response()->json([
-                'message' => 'Pedido recebido! Obrigado pela confiança, seu brinde chegará em breve :)',
+                'message' => 'Pedido recebido! Obrigado pela confiança, seu pedido chegará em breve :)',
             ]);
         } else {
             return response()->json([
