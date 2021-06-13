@@ -9,6 +9,7 @@
     <title>Petiko</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -27,6 +28,10 @@
 
         <div class="alert alert-success messageBox d-none" role="alert"></div>
 
+        <div class="alert alert-primary load d-none" role="alert">
+          <i class="fas fa-spinner fa-pulse"></i> Enviando, aguarde!
+      </div>
+
         <span> Campos com (*) são obrigatórios! </span>
         <form action="" id="form-cadastrar-pedido" name="form-cadastrar-pedido">
             @csrf
@@ -40,6 +45,10 @@
                 <label for="cep">CEP*</label>
                 <div id="validaCEP" class="invalid-feedback"></div>
             </div>
+
+            <div class="loadcep d-none" role="alert">
+              <i class="fas fa-spinner fa-pulse"></i> pesquisando...
+          </div>
 
 
 
@@ -95,9 +104,11 @@
                     cep: cep
                 },
                 beforeSend: function() {
+                  $(".loadcep").removeClass("d-none");
                     $("#cep").attr("disabled", true);
                 },
                 complete: function() {
+                  $(".loadcep").addClass("d-none");
                     $("#cep").attr("disabled", false);
                 },
                 //recebendo os dados do backend
@@ -202,7 +213,7 @@
                 dataType: "json",
 
                 beforeSend: function() {
-                    // $(".load").removeClass("d-none");
+                    $(".load").removeClass("d-none");
                     $("#salvar").attr("disabled", true);
                 },
                 complete: function() {
