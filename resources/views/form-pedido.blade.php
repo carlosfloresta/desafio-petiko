@@ -1,5 +1,7 @@
 @extends('template')
 @section('titulo', 'Form Pedido - Petiko')
+@section('linkbtnav', route('pedidos'))
+@section('nomebtnav', 'Pedidos')
 
 @section('body')
     <div class="container mt-5">
@@ -26,12 +28,13 @@
                 <form action="" id="form-cadastrar-pedido" name="form-cadastrar-pedido">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nome" name="nome" placeholder="nome" required>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="nome">
                         <label for="nome">Nome completo*</label>
+                        <div id="validaNome" class="invalid-feedback"></div>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="cep" name="cep" aria-describedby="validaCEP"
-                            placeholder="cep" required>
+                            placeholder="cep">
                         <label for="cep">CEP*</label>
                         <div id="validaCEP" class="invalid-feedback"></div>
                     </div>

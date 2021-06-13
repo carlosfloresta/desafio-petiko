@@ -57,6 +57,7 @@ function ajax_cep(cep) {
                         data.logradouro +
                         ` " readonly>
                       <label for="logradouro">Logradouro*</label>
+               
                       </div>
                       </div>
 
@@ -64,6 +65,7 @@ function ajax_cep(cep) {
                       <div class="form-floating mb-3">
                       <input type="text" class="form-control" id="numero" name="numero" placeholder="numero">
                       <label for="numero">Numero*</label>
+                  
                       </div>
                       </div>
                       </div>
@@ -80,6 +82,7 @@ function ajax_cep(cep) {
                         data.bairro +
                         ` "readonly>
                       <label for="bairro">Bairro*</label>
+                   
                       </div>
 
                       <div class="form-floating mb-3">
@@ -87,6 +90,7 @@ function ajax_cep(cep) {
                         data.localidade +
                         ` "readonly>
                       <label for="cidade">Cidade*</label>
+                     
                       </div>
 
                       <div class="form-floating mb-3">
@@ -94,6 +98,7 @@ function ajax_cep(cep) {
                         data.uf +
                         ` "readonly>
                       <label for="estado">Estado*</label>
+                  
                       </div>
                      
                       <input class="btn btn-primary" type="submit" id="salvar" value="Enviar">
@@ -108,17 +113,11 @@ function ajax_cep(cep) {
             }
         },
         //aqui ele retorna erro caso tente burlar as verificaçoes do front, passando pela validação do backend
-        error: function (xhr) {
-            $("#cep").addClass("is-invalid");
-            var blkstr = [];
-            var data = xhr.responseJSON;
-            if ($.isEmptyObject(data.errors) == false) {
-                $.each(data.errors, function (key, value) {
-                    var str = value;
-                    blkstr.push(str);
-                });
-                $("#validaCEP").html(blkstr.join("<br>"));
-            }
+        error: function (response) {
+            $.each(response.responseJSON.errors, function (field_name, error) {
+                $("#cep").addClass("is-invalid");
+                $("#validaCEP").html(error);
+            });
         },
     });
 }
@@ -149,6 +148,8 @@ $('form[name="form-cadastrar-pedido"]').on("submit", function (event) {
         success: function (data) {
             if (!("erro" in data)) {
                 $('form[name="form-cadastrar-pedido"]').trigger("reset");
+                $("#nome").removeClass("is-invalid");
+                $("#cep").removeClass("is-invalid");
                 $(".endereco").remove();
                 $(".messageBox").removeClass("d-none").html(data.message);
                 setTimeout(function () {
@@ -162,22 +163,22 @@ $('form[name="form-cadastrar-pedido"]').on("submit", function (event) {
             }
             $("#salvar").attr("disabled", false);
         },
-        error: function (xhr) {
-            $(".messageBox").addClass("d-none");
-            var blkstr = [];
-            var data = xhr.responseJSON;
-            if ($.isEmptyObject(data.errors) == false) {
-                $.each(data.errors, function (key, value) {
-                    var str = value;
-                    blkstr.push(str);
-                });
-                $(".messageBoxError")
-                    .removeClass("d-none")
-                    .html(blkstr.join("<br>"));
-                setTimeout(function () {
-                    $(".messageBoxError").addClass("d-none");
-                }, 3000);
-            }
+        error: function (response) {
+            $.each(response.responseJSON.errors, function (field_name, error) {
+                $(document)
+                    .find("[name=" + field_name + "]")
+                    .removeClass("is-invalid")
+                    .next(".invalid-feedback")
+                    .remove();
+
+                $(document)
+                    .find("[name=" + field_name + "]")
+                    .addClass("is-invalid")
+                    .after(
+                        '<span class="invalid-feedback">' + error + "</span>"
+                    );
+            });
+
             $("#salvar").attr("disabled", false);
         },
     });

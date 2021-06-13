@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FormPedidoController;
+use App\Http\Controllers\PedidosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FormPedidoController::class, 'index'])->name('form-pedido');
 Route::post('/busca-cep', [FormPedidoController::class, 'buscaCep'])->name('busca-cep');
 Route::post('/salvar', [FormPedidoController::class, 'create'])->name('salvar');
+
+Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos');
 
 //meddleware para evitar acessar rota sem ser pelo ajax
 Route::any('salvar', [FormPedidoController::class, 'create'])->middleware('ajax');

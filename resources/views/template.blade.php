@@ -15,9 +15,13 @@
 </head>
 
 <body style="color: rgb(42, 99, 255)">
-    <nav class="navbar" style="background-color: rgb(235, 238, 50); ">
+    <nav class="navbar" style="background-color: rgb(235, 238, 50);">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Desafio Petiko - Carlos Floresta</span>
+
+            <div class="d-flex">
+                <a class="btn btn-outline-primary" href="@yield('linkbtnav')" type="submit">@yield('nomebtnav')</a>
+            </div>
         </div>
     </nav>
 
@@ -40,6 +44,7 @@
                 salvar: "{{ route('salvar') }}",
             }
         };
+
     </script>
 </body>
 
