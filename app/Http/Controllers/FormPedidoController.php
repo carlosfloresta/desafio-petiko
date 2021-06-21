@@ -31,6 +31,7 @@ class FormPedidoController extends Controller
             'numero' => 'required|max:10|min:1',
             'complemento' => 'max:100',
         ]);
+        //test
         $cep = $req->input('cep');
         $api = $this->apiCEP($cep);
         //validando se usuario não alterou cep por um invalido
