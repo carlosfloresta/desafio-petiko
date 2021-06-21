@@ -27,7 +27,7 @@ class FormPedidoController extends Controller
         //Validando os campos que não passam pela api
         $req->validate([
             'cep' => 'required|numeric|digits_between:8,8',
-            'nome' => 'required|min:5|max:200',
+            'nome' => 'required|min:5|max:200|regex:/^[\pL\s]+$/u',
             'numero' => 'required|max:10|min:1',
             'complemento' => 'max:100',
         ]);
